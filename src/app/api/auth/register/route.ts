@@ -4,9 +4,9 @@ import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 
 const registerSchema = z.object({
-  name: z.string().min(2, "الاسم يجب أن يكون حرفين على الأقل"),
-  email: z.string().email("البريد الإلكتروني غير صالح"),
-  password: z.string().min(6, "كلمة المرور يجب أن تكون 6 أحرف على الأقل"),
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
 export async function POST(req: Request) {
@@ -20,7 +20,7 @@ export async function POST(req: Request) {
 
     if (existingUser) {
       return NextResponse.json(
-        { error: "البريد الإلكتروني مسجل مسبقاً" },
+        { error: "Email is already registered" },
         { status: 400 }
       );
     }
@@ -32,7 +32,7 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json(
-      { message: "تم إنشاء الحساب بنجاح", userId: user.id },
+      { message: "Account created successfully", userId: user.id },
       { status: 201 }
     );
   } catch (error) {
@@ -42,6 +42,6 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
-    return NextResponse.json({ error: "حدث خطأ ما" }, { status: 500 });
+    return NextResponse.json({ error: "An error occurred" }, { status: 500 });
   }
 }

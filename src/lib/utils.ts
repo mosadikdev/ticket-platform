@@ -5,16 +5,16 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function formatPrice(cents: number, currency = "MAD"): string {
-  return new Intl.NumberFormat("ar-MA", {
+export function formatPrice(cents: number, currency = "USD"): string {
+  return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency,
   }).format(cents / 100);
 }
 
 export function formatDate(date: Date | string): string {
-  return new Intl.DateTimeFormat("ar-MA", {
-    dateStyle: "full",
+  return new Intl.DateTimeFormat("en-US", {
+    dateStyle: "medium",
     timeStyle: "short",
   }).format(new Date(date));
 }

@@ -19,7 +19,7 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          throw new Error("البريد الإلكتروني وكلمة المرور مطلوبان");
+          throw new Error("Email and password are required");
         }
 
         const user = await prisma.user.findUnique({
@@ -27,13 +27,13 @@ export const authOptions: NextAuthOptions = {
         });
 
         if (!user) {
-          throw new Error("البريد الإلكتروني غير موجود");
+          throw new Error("Email not found");
         }
 
         const isValid = await bcrypt.compare(credentials.password, user.password);
 
         if (!isValid) {
-          throw new Error("كلمة المرور غير صحيحة");
+          throw new Error("Invalid password");
         }
 
         return {

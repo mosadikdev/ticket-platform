@@ -7,7 +7,7 @@ const geist = Geist({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Ticket Platform",
-  description: "منصة بيع تذاكر الفعاليات",
+  description: "Buy tickets for your favorite events",
 };
 
 export default function RootLayout({
@@ -16,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ar" dir="rtl">
+    <html lang="en">
       <body className={geist.className}>
         <Providers>{children}</Providers>
       </body>
