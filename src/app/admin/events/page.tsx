@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { EventForm } from "@/components/events/EventForm";
 import { formatDate } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 interface Event {
   id: string;
@@ -33,6 +34,8 @@ export default function AdminEventsPage() {
   const [editingEvent, setEditingEvent] = useState<Event | null>(null);
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
+  const router = useRouter();
+
 
   const fetchEvents = async () => {
     const res = await fetch("/api/events");
@@ -169,6 +172,12 @@ export default function AdminEventsPage() {
                         >
                           Edit
                         </button>
+                        <button
+  onClick={() => router.push(`/admin/events/${event.id}/tickets`)}
+  className="text-sm text-green-600 hover:underline"
+>
+  Tickets
+</button>
                         <button
                           onClick={() => handleDelete(event.id)}
                           className="text-sm text-red-500 hover:underline"
